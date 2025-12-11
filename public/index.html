@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор паролей - Express.js</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1><i class="fas fa-key"></i> Генератор паролей</h1>
+        <p class="subtitle">Контрольная работа по Express.js</p>
+    </header>
+
+    <main>
+        <div class="generator-section">
+            <h2><i class="fas fa-cogs"></i> Настройки генерации</h2>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label for="length">Длина пароля:</label>
+                    <input type="range" id="length" min="4" max="64" value="12">
+                    <span id="length-value">12</span>
+                </div>
+
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="numbers" checked>
+                        <i class="fas fa-hashtag"></i> Цифры
+                    </label>
+                    <label>
+                        <input type="checkbox" id="symbols" checked>
+                        <i class="fas fa-asterisk"></i> Спецсимволы
+                    </label>
+                    <label>
+                        <input type="checkbox" id="uppercase" checked>
+                        <i class="fas fa-font"></i> Заглавные буквы
+                    </label>
+                </div>
+
+                <div class="button-group">
+                    <button id="generate-single" class="btn primary">
+                        <i class="fas fa-key"></i> Сгенерировать пароль
+                    </button>
+                    <button id="generate-multiple" class="btn secondary">
+                        <i class="fas fa-keyboard"></i> 5 паролей
+                    </button>
+                    <button id="check-strength" class="btn tertiary">
+                        <i class="fas fa-shield-alt"></i> Проверить сложность
+                    </button>
+                </div>
+            </div>
+
+            <div class="result">
+                <h3><i class="fas fa-key"></i> Сгенерированный пароль:</h3>
+                <div class="password-display">
+                    <input type="text" id="password-output" readonly>
+                    <button id="copy-btn" class="btn copy-btn">
+                        <i class="far fa-copy"></i> Копировать
+                    </button>
+                </div>
+                <div class="password-info">
+                    <p>Длина: <span id="password-length">-</span></p>
+                    <p>Сложность: <span id="password-strength" class="strength-weak">-</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <h2><i class="fas fa-code"></i> Примеры API запросов</h2>
+
+            <div class="api-examples">
+                <div class="api-card">
+                    <h3><i class="fas fa-download"></i> GET запрос</h3>
+                    <code>GET /api/passwords/generate?length=16&numbers=true&symbols=true</code>
+                    <button class="btn small test-api" data-method="GET" data-endpoint="/api/passwords/generate?length=16">
+                        <i class="fas fa-play"></i> Протестировать
+                    </button>
+                </div>
+
+                <div class="api-card">
+                    <h3><i class="fas fa-upload"></i> POST запрос</h3>
+                    <code>POST /api/passwords/generate</code>
+                    <pre>{
+  "length": 12,
+  "useNumbers": true,
+  "useSymbols": true
+}</pre>
+                    <button class="btn small test-api" data-method="POST" data-endpoint="/api/passwords/generate">
+                        <i class="fas fa-play"></i> Протестировать
+                    </button>
+                </div>
+
+                <div class="api-card">
+                    <h3><i class="fas fa-search"></i> Проверка пароля</h3>
+                    <code>POST /api/passwords/check</code>
+                    <pre>{
+  "password": "MyPass123!"
+}</pre>
+                    <button class="btn small test-api" data-method="POST" data-endpoint="/api/passwords/check">
+                        <i class="fas fa-play"></i> Протестировать
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="logs-section">
+            <h2><i class="fas fa-clipboard-list"></i> Логи запросов</h2>
+            <div id="logs-container"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Контрольная работа по Express.js | Генератор паролей</p>
+        <p>Сервер запущен на <span id="server-url">http://localhost:3000</span></p>
+    </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
